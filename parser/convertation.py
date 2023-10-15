@@ -4,7 +4,7 @@ import json
 def convert_to_json(cleaned_data: list) -> json:
     data = {
         cleaned_data[0]: {
-            cleaned_data[1].replace('"', ''): [
+            cleaned_data[1].replace('"', "'"): [
                 {
                     "Дисципліна, викладач": item[2],
                     "День": item[0],
@@ -22,5 +22,5 @@ def convert_to_json(cleaned_data: list) -> json:
 
 
 def create_json(json_data: json):
-    with open('output.json', 'w', encoding='utf-8') as json_file:
+    with open('normalized_schedule.json', 'w', encoding='utf-8') as json_file:
         json.dump(json_data, json_file, ensure_ascii=False, indent=4)

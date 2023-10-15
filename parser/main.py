@@ -24,4 +24,5 @@ def main():
 
 
 if __name__ == "__main__":
+    # to run write in terminal 'python main.py "../data/3.xlsx"'
     main()
