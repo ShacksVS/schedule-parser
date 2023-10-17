@@ -1,7 +1,10 @@
 import json
 
 
-def convert_to_json(cleaned_data: list) -> json:
+JSON_FILE_NAME = 'normalized_schedule.json'
+
+
+def convert_to_json(cleaned_data: list):
     data = {
         cleaned_data[0]: {
             cleaned_data[1].replace('"', "'"): [
@@ -18,9 +21,13 @@ def convert_to_json(cleaned_data: list) -> json:
         }
     }
 
-    return data
+    try:
+        create_json(data)
+        print(f"Successfully created json in '{JSON_FILE_NAME}'")
+    except Exception as e:
+        print(e)
 
 
 def create_json(json_data: json):
-    with open('normalized_schedule.json', 'w', encoding='utf-8') as json_file:
+    with open(JSON_FILE_NAME, 'w', encoding='utf-8') as json_file:
         json.dump(json_data, json_file, ensure_ascii=False, indent=4)

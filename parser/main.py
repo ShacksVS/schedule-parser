@@ -17,12 +17,13 @@ def main():
 
     if sheet is not None:
         cleaned_schedule = get_clean_data(sheet)
+        for el in cleaned_schedule:
+            print(el)
 
     if cleaned_schedule:
-        json_data = convert_to_json(cleaned_schedule)
-        create_json(json_data)
+        convert_to_json(cleaned_schedule)
 
 
+# to run write in terminal 'python main.py "../data/3.xlsx"'
 if __name__ == "__main__":
-    # to run write in terminal 'python main.py "../data/3.xlsx"'
     main()

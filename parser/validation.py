@@ -1,6 +1,11 @@
 import openpyxl
 
 
+MAX_ROW_FOR_FACULTY = 15
+MAX_ROW = 400
+MAX_COL = 6
+
+
 def load_schedule(file_path):
     try:
         wb = openpyxl.load_workbook(file_path)
@@ -11,15 +16,39 @@ def load_schedule(file_path):
         return None
 
 
+def find_faculty(sheet) -> str:
+    for row in sheet.iter_rows(min_row=1, max_row=MAX_ROW_FOR_FACULTY, max_col=MAX_COL, values_only=True):
+        for cell in row:
+            if cell is not None and "Факультет" in cell:
+                return cell
+    return ""
+
+
+def find_speciality(sheet) -> str:
+    for row in sheet.iter_rows(min_row=1, max_row=MAX_ROW_FOR_FACULTY, max_col=MAX_COL, values_only=True):
+        for cell in row:
+            if cell is not None and "Спеціальність" in cell:
+                return cell
+    return ""
+
+
+def find_row_index(sheet):
+    for i, row in enumerate(sheet.iter_rows(min_row=0, max_row=20, max_col=5, values_only=True)):
+        if 'День' and 'Час' in row:
+            return i + 1
+    return -1
+
+
 def get_clean_data(sheet) -> list:
-    temp_time = None
-    temp_weekday = None
-    updated_rows = []
+    temp_time, temp_weekday = None, None
 
-    for row in sheet.iter_rows(min_row=6, max_row=7, max_col=6, values_only=True):
-        updated_rows.append(row[0])
+    updated_rows = [find_faculty(sheet), find_speciality(sheet)]
 
-    for row in sheet.iter_rows(min_row=10, max_row=73, max_col=6, values_only=True):
+    start_index = find_row_index(sheet)
+    if start_index == -1:
+        return ["error"]
+
+    for row in sheet.iter_rows(min_row=start_index, max_row=MAX_ROW, max_col=MAX_COL, values_only=True):
         row_list = list(row)
 
         # Giving correct time for a class without time
@@ -40,5 +69,3 @@ def get_clean_data(sheet) -> list:
             updated_rows.append(updated_row)
 
     return updated_rows
-
-
