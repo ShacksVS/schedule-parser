@@ -26,6 +26,5 @@ def main():
         convert_to_json(cleaned_schedule)
 
 
-# to run write in terminal 'python main.py "../data/3.xlsx"'
 if __name__ == "__main__":
     main()

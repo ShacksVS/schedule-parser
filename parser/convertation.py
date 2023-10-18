@@ -2,7 +2,7 @@ import json
 import re
 
 
-JSON_FILE_NAME = 'normalized_schedule.json'
+JSON_FILE_NAME = 'data/normalized_schedule.json'
 
 
 def split_specialties(text):
