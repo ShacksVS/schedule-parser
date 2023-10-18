@@ -17,8 +17,10 @@ def main():
 
     if sheet is not None:
         cleaned_schedule = get_clean_data(sheet)
-        for el in cleaned_schedule:
-            print(el)
+        # to look for cleaned data uncomment this
+
+        # for el in cleaned_schedule:
+        #     print(el)
 
     if cleaned_schedule:
         convert_to_json(cleaned_schedule)

@@ -32,9 +32,9 @@ def find_speciality(sheet) -> str:
     return ""
 
 
-def find_row_index(sheet):
-    for i, row in enumerate(sheet.iter_rows(min_row=0, max_row=20, max_col=5, values_only=True)):
-        if 'День' and 'Час' in row:
+def find_row_index(sheet) -> int:
+    for i, row in enumerate(sheet.iter_rows(min_row=0, max_row=20, max_col=6, values_only=True)):
+        if 'Понеділок' in row or 'Вівторок' in row:
             return i + 1
     return -1
 
@@ -45,6 +45,7 @@ def get_clean_data(sheet) -> list:
     updated_rows = [find_faculty(sheet), find_speciality(sheet)]
 
     start_index = find_row_index(sheet)
+
     if start_index == -1:
         return ["error"]
 
